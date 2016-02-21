@@ -1,12 +1,26 @@
 <Scraper>
   <Property name="title" selector="h1[itemprop=name]"/>
-  <Property name="rating" selector="[itemprop=ratingValue]"/>
-  <Property name="ratingCount" selector="[itemprop=ratingCount]"/>
-  <Property name="duration" selector="[itemprop=duration]"/>
-  <Property name="creator" selector="[itemprop=creator] span"/>
   <Property name="plot" selector=".summary_text"/>
   <Property name="poster" selector="img[itemprop=image]">
     <Filter type="first"/>
     <Filter type="attr" argument="src"/>
   </Property>
+  <Property name="rating" selector="[itemprop=ratingValue]"/>
+  <Property name="ratingCount" selector="[itemprop=ratingCount]"/>
+  <Property name="duration" selector="[itemprop=duration]"/>
+  <Each name="genres" selector="a span[itemprop=genre]" >
+    <Property name="genre" selector="a span[itemprop=genre]" >
+      <Filter type="first" />
+      <Filter type="text" />
+    </Property>
+  </Each>
+  <Each name="cast" selector=".cast_list tr[class]">
+    <Property name="url" selector="[itemprop=url]">
+      <Filter type="attr" argument="href"/>
+      <Filter type="regex" argument="(\/name\/nm[\d]{0,}\/)"/>
+    </Property>
+    <Property name="name" selector="[itemprop=name]"/>
+    <Property name="character" selector=".character a"/>
+  </Each>
+  <Property name="creator" selector="[itemprop=creator] span"/>
 </Scraper>

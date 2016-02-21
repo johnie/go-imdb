@@ -9,16 +9,6 @@ import (
   "github.com/leebenson/conform"
 )
 
-type TitleResponse struct {
-  Title       string `conform:"trim"`
-  Rating      string `conform:"trim"`
-  RatingCount string `conform:"trim"`
-  Duration    string `conform:"trim"`
-  Creator     string `conform:"trim"`
-  Plot        string `conform:"trim"`
-  Poster      string
-}
-
 func Title(r render.Render, params martini.Params) {
 
   titleUrl := fmt.Sprintf("http://www.imdb.com/title/%s", params["id"])
@@ -38,4 +28,22 @@ func Title(r render.Render, params martini.Params) {
   titleresponse.Poster = poster
 
   r.JSON(200, titleresponse)
+}
+
+type TitleResponse struct {
+  Title       string `conform:"trim"`
+  Plot        string `conform:"trim"`
+  Poster      string
+  Rating      string `conform:"trim"`
+  RatingCount string `conform:"trim"`
+  Duration    string `conform:"trim"`
+  Genres      []string
+  Creator     string `conform:"trim"`
+  Cast        []cast
+}
+
+type cast struct {
+  Url       string
+  Name      string
+  Character string
 }
