@@ -1,37 +1,48 @@
 package main
 
 import (
-  "github.com/gin-gonic/gin"
+  "github.com/go-martini/martini"
+  "github.com/martini-contrib/render"
 )
 
 /**
  * The urls we're gonna use
  */
 var urls = []string{"/top", "/toptv", "/title/:id"}
-var DB = make(map[string]string)
 
-func Index(c *gin.Context) {
-  content := gin.H{"urls": urls}
-  c.JSON(200, content)
+func Index(r render.Render) {
+  r.JSON(200, map[string]interface{}{"api_urls": urls})
 }
 
-func PageNotFound(c *gin.Context) {
-  c.JSON(404, gin.H{"code": 404, "message": "Page not found"})
+func PageNotFound(r render.Render) {
+  r.JSON(404, map[string]interface{}{"code": 404, "message": "Page not found"})
 }
 
 func main() {
-  app := gin.Default()
+  // Run Martini with basic middlewares
+  app := martini.Classic()
 
-  v1 := app.Group("api/v1")
-  {
-    v1.GET("/", Index)
-    v1.GET(urls[0], Top)
-    v1.GET(urls[1], TopTV)
-  }
+  // HTML, JSON and XML middleware
+  app.Use(render.Renderer())
 
-  // Handle No Routes
-  app.NoRoute(PageNotFound)
+  // Group urls in `/api/v1`
+  app.Group("/api/v1", func(v1 martini.Router) {
+    // Index route
+    v1.Get("/", Index)
+
+    // `/top` route
+    v1.Get(urls[0], Top)
+
+    // `/toptv` route
+    v1.Get(urls[1], TopTV)
+
+    // /title/:id route
+    v1.Get(urls[2], Title)
+  })
+
+  // Handle Not Found
+  app.NotFound(PageNotFound)
 
   // Let's go with the year IMDB was created
-  app.Run(":1990")
+  app.RunOnAddr(":1990")
 }

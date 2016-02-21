@@ -1,18 +1,18 @@
 package main
 
 import (
-  "github.com/gin-gonic/gin"
+  "github.com/martini-contrib/render"
   "github.com/ernesto-jimenez/scraperboard"
 )
 
-func TopTV(c *gin.Context) {
+func TopTV(r render.Render) {
   scraper, _ := scraperboard.NewScraperFromFile("scraper_files/toptv.xml")
 
   var toptvresponse TopTvResponse
 
   scraper.ExtractFromURL("http://www.imdb.com/chart/toptv", &toptvresponse)
 
-  c.JSON(200, toptvresponse)
+  r.JSON(200, toptvresponse)
 }
 
 type TopTvResponse struct {
