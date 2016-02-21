@@ -1,0 +1,32 @@
+<Scraper>
+  <Property name="name" selector="h1 span[itemprop=name]">
+    <Filter type="text"/>
+  </Property>
+  <Property name="bio" selector="#name-bio-text [itemprop=description]">
+    <Filter type="text"/>
+    <Filter type="regex" argument="(.+?[.+]{3})"/>
+  </Property>
+  <Property name="image" selector="img[itemprop=image]">
+    <Filter type="first"/>
+    <Filter type="attr" argument="src"/>
+  </Property>
+  <Property name="born" selector="[itemprop=birthDate]">
+    <Filter type="first"/>
+    <Filter type="attr" argument="datetime"/>
+  </Property>
+  <Each name="knownFor" selector="#knownfor div">
+    <Property name="title" selector="a">
+      <Filter type="text"/>
+      <Filter type="regex" argument="(\p{Lu}.+\s)"/>
+    </Property>
+    <Property name="year" selector="a">
+      <Filter type="text"/>
+      <Filter type="regex" argument="([\d]{4})"/>
+    </Property>
+    <Property name="url" selector="a">
+      <Filter type="first"/>
+      <Filter type="attr" argument="href" />
+      <Filter type="regex" argument="(\/title\/tt[\d]{7}\/)"/>
+    </Property>
+  </Each>
+</Scraper>

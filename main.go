@@ -8,7 +8,7 @@ import (
 /**
  * The urls we're gonna use
  */
-var urls = []string{"/top", "/toptv", "/title/:id"}
+var urls = []string{"/top", "/toptv", "/title/:id", "/name/:id"}
 
 func Index(r render.Render) {
   r.JSON(200, map[string]interface{}{"api_urls": urls})
@@ -38,6 +38,9 @@ func main() {
 
     // /title/:id route
     v1.Get(urls[2], Title)
+
+    // /name/:id route
+    v1.Get(urls[3], Name)
   })
 
   // Handle Not Found
