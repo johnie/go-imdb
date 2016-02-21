@@ -3,6 +3,7 @@ package main
 import (
   "github.com/go-martini/martini"
   "github.com/martini-contrib/render"
+  "github.com/martini-contrib/cors"
 )
 
 /**
@@ -24,6 +25,16 @@ func main() {
 
   // HTML, JSON and XML middleware
   app.Use(render.Renderer())
+
+  // CORS for *
+  // - GET methods
+  // - Origin header
+  app.Use(cors.Allow(&cors.Options{
+    AllowOrigins:   []string{"*"},
+    AllowMethods:   []string{"GET"},
+    AllowHeaders:   []string{"Origin"},
+    ExposeHeaders:  []string{"Content-Length"},
+  }))
 
   // Group urls in `/api/v1`
   app.Group("/api/v1", func(v1 martini.Router) {
