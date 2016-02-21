@@ -26,7 +26,7 @@
     <Property name="url" selector="a">
       <Filter type="first"/>
       <Filter type="attr" argument="href" />
-      <Filter type="regex" argument="(\/title\/tt[\d]{7}\/)"/>
+      <Filter type="regex" argument="(\/title\/tt[\d]{0,7}\/)"/>
     </Property>
   </Each>
 </Scraper>

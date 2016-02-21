@@ -17,7 +17,7 @@
   <Each name="cast" selector=".cast_list tr[class]">
     <Property name="url" selector="[itemprop=url]">
       <Filter type="attr" argument="href"/>
-      <Filter type="regex" argument="(\/name\/nm[\d]{0,}\/)"/>
+      <Filter type="regex" argument="(\/name\/nm[\d]{0,8}\/)"/>
     </Property>
     <Property name="name" selector="[itemprop=name]"/>
     <Property name="character" selector=".character a"/>
