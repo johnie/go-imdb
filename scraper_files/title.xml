@@ -1,3 +1,12 @@
 <Scraper>
-  
+  <Property name="title" selector="h1[itemprop=name]"/>
+  <Property name="rating" selector="[itemprop=ratingValue]"/>
+  <Property name="ratingCount" selector="[itemprop=ratingCount]"/>
+  <Property name="duration" selector="[itemprop=duration]"/>
+  <Property name="creator" selector="[itemprop=creator] span"/>
+  <Property name="plot" selector=".summary_text"/>
+  <Property name="poster" selector="img[itemprop=image]">
+    <Filter type="first"/>
+    <Filter type="attr" argument="src"/>
+  </Property>
 </Scraper>
