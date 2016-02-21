@@ -9,7 +9,7 @@ import (
 /**
  * The urls we're gonna use
  */
-var urls = []string{"/top", "/toptv", "/title/:id", "/name/:id"}
+var urls = []string{"/top", "/toptv", "/title/(?P<id>tt[0-9]{0,7})", "/name/(?P<id>nm[0-9]{0,8})"}
 
 func Index(r render.Render) {
   r.JSON(200, map[string]interface{}{"api_urls": urls})
