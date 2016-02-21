@@ -6,7 +6,11 @@
       <Filter type="regex" argument="(tt[\d]{7})"/>
     </Property>
     <Property name="title" selector=".titleColumn a" />
-    <Property name="year" selector=".titleColumn span" />
+    <Property name="year" selector=".titleColumn span">
+      <Filter type="first" />
+      <Filter type="text" />
+      <Filter type="regex" argument="([\d]{4})" />
+    </Property>
     <Property name="rating" selector=".ratingColumn strong" />
     <Property name="url" selector=".titleColumn a">
       <Filter type="first"/>
