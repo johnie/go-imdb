@@ -1,3 +1,5 @@
+> ⚠️ DEPRECATED
+
 # go-imdb
 
 > WIP: Simple API for IMDB
